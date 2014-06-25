@@ -1,4 +1,5 @@
 from __future__ import division
+import re
 #word:X->Y
 class word(object):
 	def __init__(self,name,wdict={}):
@@ -121,6 +122,38 @@ def xrule(x,grams):
 		if g.strs[0] == x.name:
 			rlist.append(g.strs)
 	return rlist
+
+#normally,we give a i,j,x.we can achieve rule R and Pos s
+#based on R and s to append tag and word into the Taglist
+#compute the first rule is out of the def
+#every time we know the i,j,x,and s
+def reback(pidict,bpdict,wordlist,(i,j,xname),Taglist):
+	#pattern_to_del = '\^\<.*\>'
+	#xname = re.sub(pattern_to_del,'',xname)
+	tmpr = bpdict[(i,j,xname)][0]
+	#for i in xrange(3):
+		#tmpr[i] = re.sub(pattern_to_del,"",tmpr[i])
+	tmps = bpdict[(i,j,xname)][1]
+	Taglist.append(xname)
+	Taglist.append([])
+	Taglist.append([])
+	if (i == tmps):
+		Taglist[1].append(tmpr[1])
+		Taglist[1].append(wordlist[i-1])
+		if (j == tmps+1):
+			Taglist[2].append(tmpr[2])
+			Taglist[2].append(wordlist[j-1])
+		else:
+			reback(pidict,bpdict,wordlist,(tmps+1,j,tmpr[2]),Taglist[2])
+
+	else:
+		if (j == tmps+1):
+			reback(pidict,bpdict,wordlist,(i,tmps,tmpr[1]),Taglist[1])
+			Taglist[2].append(tmpr[2])
+			Taglist[2].append(wordlist[j-1])
+		else:
+			reback(pidict,bpdict,wordlist,(i,tmps,tmpr[1]),Taglist[1])
+			reback(pidict,bpdict,wordlist,(tmps+1,j,tmpr[2]),Taglist[2])
 #Should I compute all rule-p now!?
 rdict = {}
 for r in grams:
@@ -150,10 +183,10 @@ for wlist in Wlist:
 	for l in xrange(1,n):
 		for i in xrange(1,n-l):
 			j = i + l
-			tmpmax = 0
-			tmps = 0
-			tmpr = ""
 			for x in nonterms:
+				tmpmax = 0
+				tmps = 0
+				tmpr = ""
 				for r in xrule(x,grams):
 					for s in xrange(i,j):
 						if ((i,s,r[1]) in pidict) and ((s+1,j,r[2]) in pidict):
@@ -176,7 +209,8 @@ for wlist in Wlist:
 			if lmax < pidict[(1,n-1,nx.name)]:
 				lmax = pidict[(1,n-1,nx.name)]
 				lx = nx.name
-	print lmax,lx
-	print bpdict[(1,n-1,lx)]
+	tlist = []
+	reback(pidict,bpdict,wlist,(1,n-1,lx),tlist)
+	print tlist
 	break
 #'''
