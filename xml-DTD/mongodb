@@ -35,3 +35,38 @@ the code about construct the cat_info:
 		BasicDBObject objRefData = (BasicDBObject)ref_obj.fetch();
 	}
 
+REAL TRAIN_3 method:
+	1.create the db-student-db, and create two collections, one stu_info to save the (S#,test#,score) besides the cat_info to save the (S,category)
+	2.according to the feature of mongodb, we choose the dataset like: {s#:xx,test:{test#:score,...}}, meanwhile, to connect two collections, we use DBRef to link the student#, to make it that, all the db, just have one student# of each the student.
+	3.get all the test: just output the test:fields.
+	4.get one cat student test: use the cat_info to find the _id of the student, the output the test...
+	5:format of stu_info: S#,test:{test#:score,...}
+		s_id : 14003001 , Test : { C001 : 90 , C002 : 80 , C010 : 93 , C101 : 77 }
+		s_id : 14003002 , Test : { C010 : 88 , C100 : 70 , C101 : 90 , C110 : 90 }
+		s_id : 14003003 , Test : { C001 : 94 , C003 : 70 , C100 : 94 , C110 : 80 }
+		s_id : 14003004 , Test : { C001 : 92 , C010 : 60 , C111 : 90 , C200 : 90 }
+		s_id : 14003005 , Test : { C001 : 90 , C002 : 60 , C103 : 80 , C203 : 80 }
+		s_id : 14003006 , Test : { C002 : 60 , C003 : 78 , C020 : 94 , C103 : 70 }
+		s_id : 14003007 , Test : { C005 : 88 , C011 : 87 , C021 : 98 , C102 : 80 }
+		s_id : 14003008 , Test : { C001 : 70 , C002 : 82 , C004 : 80 , C102 : 80 }
+		s_id : 14003009 , Test : { C002 : 80 , C010 : 82 , C020 : 90 , C103 : 90 }
+		s_id : 14003010 , Test : { C001 : 90 , C002 : 91 , C003 : 92 , C004 : 94 }
+		s_id : 14003027 , Test : { #DB# : 90 , ALG# : 80 , #DM# : 80 , NLP# : 80 }
+
+
+		s# : 14003001 , category : T1 
+		s# : 14003002 , category : T1
+		s# : 14003003 , category : T2
+		s# : 14003004 , category : T2
+		s# : 14003005 , category : T3
+		s# : 14003006 , category : T3
+		s# : 14003007 , category : T5
+		s# : 14003008 , category : T7
+		s# : 14003009 , category : T8
+		s# : 14003010 , category : T8
+		s# : 14003027 , category : T9
+	6.now get the data we want: 1)get one student's total test-scores 2)get one category's students test scores.
+	      1) get one student's all test-scores
+	      	 db.stu_info.find({s_id:14003027},{Test:true})
+	      2) get one category ..:
+	      	 s 

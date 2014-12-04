@@ -20,7 +20,7 @@ def get_word_set(path):
     with open(path,"rb") as in_file:
         lines = in_file.readlines()
         for line in lines:
-            str_tmp = line.rstrip().decode('gbk')
+            str_tmp = line.rstrip().decode('gbk','ignore')
             seg_set.append(str_tmp)
         in_file.close()
     return seg_set
@@ -64,7 +64,7 @@ def get_doc_set(path,dicts,lists):
             str_list = []
             lines = infile.readlines()
             for line in lines:
-                str_tmp += line.rstrip().decode('gbk')
+                str_tmp += line.rstrip().decode('gbk','ignore')
             infile.close()
             seg_list = jieba.cut(str_tmp,cut_all=False)
             #get the s_gram word
@@ -100,9 +100,12 @@ def word_laplace(sw_dict,bw_dict,bw_list,sw_list):
     return sw_dict,bw_dict
 
 def dict_to_file(word_dict,file_path):
+    tmp_tuple = sorted(word_dict.iteritems(),key=lambda asd:asd[1],reverse=True)
     with open(file_path,'wb') as in_file:
-        for idx in word_dict:
-            str_tmp = str(idx)+'\t'+str(word_dict[idx])+'\n'
+        for idx in xrange(len(word_dict)):
+            str_tmp = str(tmp_tuple[idx][0])+'\t'+str(tmp_tuple[idx][1])+'\n'
+        #for idx in word_dict:
+            #str_tmp = str(idx)+'\t'+str(word_dict[idx])+'\n'
             in_file.write(str_tmp)
         in_file.close()
 
