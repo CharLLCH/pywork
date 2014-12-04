@@ -16,7 +16,7 @@ def initial_points(n,k):
     pos_dict = {}
     point_list = []
     for idx in xrange(n):
-        if idx >= 8:
+        if idx >= 0:
             x_tmp = random.randrange(200)
             y_tmp = random.randrange(200)
             s_tmp = str(x_tmp)+'-'+str(y_tmp)
@@ -90,9 +90,9 @@ def point_plot(p_list,p_dict,color_dict,mark_dict):
     for p in p_list:
         x,y = p.get_pos()
         c = p.get_cluster()
-        plt.plot(x,y,color_dict[c])
+        plt.plot(x,y,color_dict[c%8])
     for c in p_dict:
-        plt.plot(p_dict[c][0],p_dict[c][1],mark_dict[c])
+        plt.plot(p_dict[c][0],p_dict[c][1],mark_dict[c%8])
     plt.show()
 
 
@@ -110,9 +110,9 @@ def sub_plot(p_list,p_dict,ax,color_dict,mark_dict):
     for p in p_list:
         x,y = p.get_pos()
         c = p.get_cluster()
-        plt.plot(x,y,color_dict[c])
+        plt.plot(x,y,color_dict[c%8])
     for c in p_dict:
-        plt.plot(p_dict[c][0],p_dict[c][1],mark_dict[c])
+        plt.plot(p_dict[c][0],p_dict[c][1],mark_dict[c%8])
 
 #to get the parameter of the n and k
 def main():
