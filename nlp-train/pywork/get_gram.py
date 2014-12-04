@@ -50,7 +50,7 @@ def get_d_s(path):
         data.decode('gbk')
 '''
 
-def get_doc_set(path,dicts):
+def get_doc_set(path,dicts,lists):
     doc_list = os.listdir(path)
     voc_dict = {}
     for dd in doc_list:
@@ -67,7 +67,7 @@ def get_doc_set(path,dicts):
             seg_list = jieba.cut(str_tmp,cut_all=False)
             #get the s_gram word
             for seg in seg_list:
-                if seg in dicts:
+                if (seg in dicts) or (seg in lists):
                     str_list.append(seg)
                     str_len += 1
                     if seg in voc_dict:
@@ -84,8 +84,11 @@ def get_doc_set(path,dicts):
                         voc_dict[tmp] = 1
     return voc_dict
 
-def word_laplace(voc_dict,word_dict):
+def word_laplace(voc_dict,word_dict,word_list):
     for i in word_dict:
+        if i not in voc_dict:
+            voc_dict[i] = 1
+    for i in word_list:
         if i not in voc_dict:
             voc_dict[i] = 1
     return voc_dict
@@ -96,5 +99,5 @@ if __name__ == "__main__":
     sw_list = get_word_set(ws_path)
     dw_dict = get_words_set(lex_path)
     #single word dict, to store each word's appearance times.
-    voc_dict = get_doc_set(text_path,dicts)
-    voc_dict = word_laplace(voc_dict,dicts)
+    voc_dict = get_doc_set(text_path,dw_dict,sw_list)
+    voc_dict = word_laplace(voc_dict,dw_dict,sw_list)
