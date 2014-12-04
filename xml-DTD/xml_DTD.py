@@ -30,7 +30,6 @@ def get_data(file_path):
     provience_re = re.compile(r'''<provience>(.+?)</provience>''',re.DOTALL)
 
     stu_list = stu_re.findall(str_tmp)
-    print stu_list
 
     for idx,item in enumerate(stu_list):
         s_name = sname_re.findall(item)
