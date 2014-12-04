@@ -1,0 +1,37 @@
+1.create the db, collections (stu_info, cat_info)
+2.stu_info is normal, pay attention to that, you can store all the information in stu_info, for Nosql is about doing that, also you can store them in two collections, but the cat_info's s# is DBRef from the stu_info, I think it is like that there are just one this student, everywhere the student is this one, feeling like a pointer.
+the code about construct the cat_info:
+	stu = {category:x,stu:[new DBRef('stu_info',db.stu_info.findOne({s_id:xxxx})._id)]}
+	db.cat_info.save(stu)
+	#because the student is only one in the stu_info, so just use the findOne is ok!
+3.according to the cat to get the student's score.
+	db.cat_info.find({category:x})[0].stu[0].fetch().Score
+	#find to find several, use python or other api to loop it. if just one, find()[0] or just findOne() is ok.
+4.maybe shell is also can use for.
+	for(var var_tmp = db.stu_info.find() ; var_tmp.hasNext() ; ){
+		printjson(var_tmp.next().Score);
+	}
+	so:
+	for (var tmp_item = db.cat_info.find({category:xx}) ; tmp_item.hasNext() ; ){
+		printjson(tmp_item.next().stu[0].fetch().Score);
+	}
+	for (var tmp_item = db.cat_info.find({category:xx}) ; tmp_item.hasNext() ; ){
+		db.stu_info.find({s_id:tmp_item.next().stu[0].fetch().s_id},{Test_id:true,Score:true})
+	#this can just get one field, if just one test is ok, also we can insert all the test:score in the sub document, so inserted-query!?
+
+	ps:java for DBRef fetch..
+	mongo = this.dao.getMongo();
+	db = this.dao.getDB(mongo);
+	DBCollection collection = db.getCollection(this.collection_name);
+
+	BasicDBObject query = new BasicDBObject();
+	query.append("field_key",field_key);
+	DBCursor cursor = collection.find(query);
+	BasicDBObject object = null;
+
+	if (cursor.hasNext()){
+		object = (BasicDBObject)cursor.next();
+		DBRef ref_obj = (DBRef)object.get("ref_obj");
+		BasicDBObject objRefData = (BasicDBObject)ref_obj.fetch();
+	}
+

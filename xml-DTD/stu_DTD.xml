@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE student-list[
+	<!ELEMENT student-list(student)>
+	<!ELEMENT student(sname,sID,sgrade,scontact,saddr)>
+	<!ELEMENT saddr(street,city,provience)>
+	<!ELEMENT sname(#PCDATA)>
+	<!ELEMENT sID(#PCDATA)>
+	<!ELEMENT sgrade(#PCDATA)>
+	<!ELEMENT scontact(#PCDATA)>
+	<!ELEMENT street(#PCDATA)>
+	<!ELEMENT city(#PCDATA)>
+	<!ELEMENT provience(#PCDATA)>
+]>
+<?xml-stylesheet type="text/xsl" href="mystyle.xsl"?>
+
+<student-list>
+<student>
+<sname>ZhangSan</sname>
+<sID>14S003001</sID>
+<sgrade>junior</sgrade>
+<scontact>18511320283</scontact>
+<saddr>
+<street>Road 55th</street>
+<city>Peking</city>
+<provience>Peking</provience>
+</saddr>
+</student>
+
+
+<student-list>
+<student>
+<sname>ChengHao</sname>
+<sID>14S003027</sID>
+<sgrade>senior</sgrade>
+<scontact>18511320501</scontact>
+<saddr>
+<street>WestStraight 92</street>
+<city>Harbin</city>
+<provience>HeiLongJiang</provience>
+</saddr>

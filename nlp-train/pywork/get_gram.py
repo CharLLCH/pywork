@@ -50,9 +50,11 @@ def get_d_s(path):
         data.decode('gbk')
 '''
 
+#ok, output the single_and_binary_dict..
 def get_doc_set(path,dicts,lists):
     doc_list = os.listdir(path)
-    voc_dict = {}
+    sw_dict = {}
+    bw_dict = {}
     for dd in doc_list:
         str_tmp = ''
         file_path = path + dd
@@ -70,34 +72,49 @@ def get_doc_set(path,dicts,lists):
                 if (seg in dicts) or (seg in lists):
                     str_list.append(seg)
                     str_len += 1
-                    if seg in voc_dict:
-                        voc_dict[seg] += 1
+                    if seg in sw_dict:
+                        sw_dict[seg] += 1
                     else:
-                        voc_dict[seg] = 1
+                        sw_dict[seg] = 1
             #get the b_gram word.
             for idx in xrange(str_len-1):
                 tmp = str_list[idx]+str_list[idx+1]
                 if tmp in dicts:
-                    if tmp in voc_dict:
-                        voc_dict[tmp] += 1
+                    if tmp in bw_dict:
+                        bw_dict[tmp] += 1
                     else:
-                        voc_dict[tmp] = 1
-    return voc_dict
+                        bw_dict[tmp] = 1
+    return sw_dict,bw_dict
 
-def word_laplace(voc_dict,word_dict,word_list):
-    for i in word_dict:
-        if i not in voc_dict:
-            voc_dict[i] = 1
-    for i in word_list:
-        if i not in voc_dict:
-            voc_dict[i] = 1
-    return voc_dict
+def word_laplace(sw_dict,bw_dict,bw_list,sw_list):
+    for i in bw_list:
+        if i not in bw_dict:
+            bw_dict[i] = 1
+        else:
+            bw_dict[i] += 1
+    for i in sw_list:
+        if i not in sw_dict:
+            sw_dict[i] = 1
+        else:
+            sw_dict[i] += 1
+    return sw_dict,bw_dict
+
+def dict_to_file(word_dict,file_path):
+    with open(file_path,'wb') as in_file:
+        for idx in word_dict:
+            str_tmp = str(idx)+'\t'+str(word_dict[idx])+'\n'
+            in_file.write(str_tmp)
+        in_file.close()
 
 if __name__ == "__main__":
     #x = u"阿"
     #sw_list:just has the single word, dw_dict is the dict that has pronouncation.
     sw_list = get_word_set(ws_path)
-    dw_dict = get_words_set(lex_path)
+    bw_list = get_words_set(lex_path)
     #single word dict, to store each word's appearance times.
-    voc_dict = get_doc_set(text_path,dw_dict,sw_list)
-    voc_dict = word_laplace(voc_dict,dw_dict,sw_list)
+    sw_dict,bw_dict = get_doc_set(text_path,bw_list,sw_list)
+    dict_to_file(sw_dict,'../result/sw_dict.txt')
+    dict_to_file(bw_dict,'../result/bw_dict.txt')
+    sw_dict,bw_dict = word_laplace(sw_dict,bw_dict,bw_list,sw_list)
+    dict_to_file(sw_dict,'../result/sw_dict_lap.txt')
+    dict_to_file(bw_dict,'../result/bw_dict_lap.txt')
