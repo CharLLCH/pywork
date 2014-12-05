@@ -90,13 +90,9 @@ def word_laplace(sw_dict,bw_dict,bw_list,sw_list):
     for i in bw_list:
         if i not in bw_dict:
             bw_dict[i] = 1
-        else:
-            bw_dict[i] += 1
     for i in sw_list:
         if i not in sw_dict:
             sw_dict[i] = 1
-        else:
-            sw_dict[i] += 1
     return sw_dict,bw_dict
 
 def dict_to_file(word_dict,file_path):
@@ -116,8 +112,8 @@ if __name__ == "__main__":
     bw_list = get_words_set(lex_path)
     #single word dict, to store each word's appearance times.
     sw_dict,bw_dict = get_doc_set(text_path,bw_list,sw_list)
-    dict_to_file(sw_dict,'../result/sw_dict.txt')
-    dict_to_file(bw_dict,'../result/bw_dict.txt')
+    dict_to_file(sw_dict,'../result/sw_dict_wiout_lap.txt')
+    dict_to_file(bw_dict,'../result/bw_dict_wiout_lap.txt')
     sw_dict,bw_dict = word_laplace(sw_dict,bw_dict,bw_list,sw_list)
     dict_to_file(sw_dict,'../result/sw_dict_lap.txt')
     dict_to_file(bw_dict,'../result/bw_dict_lap.txt')
