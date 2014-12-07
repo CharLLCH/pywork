@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE student-list[
+	<!ELEMENT student-list(student)>
+	<!ELEMENT student(sname,sID,sgrade,scontact,saddr)>
+	<!ELEMENT saddr(street,city,provience)>
+	<!ELEMENT sname(#PCDATA)>
+	<!ELEMENT sID(#PCDATA)>
+	<!ELEMENT sgrade(#PCDATA)>
+	<!ELEMENT scontact(#PCDATA)>
+	<!ELEMENT street(#PCDATA)>
+	<!ELEMENT city(#PCDATA)>
+	<!ELEMENT provience(#PCDATA)>
+]>
+<?xml-stylesheet type="text/xsl" href="mystyle.xsl"?>
+
+<student-list>
+<student>
+<sname>Lisi</sname>
+<sID>14S003002</sID>
+<sgrade>junior</sgrade>
+<scontact>18511321020</scontact>
+<saddr>
+<street>NanGang</street>
+<city>Beijing</city>
+<provience>Beijing</provience>
+</saddr>
+</student>

@@ -1,0 +1,45 @@
+#反向最大匹配
+def Segment(dir_word,essay,max_length):
+    sum=0;
+    essay=essay.decode('gb2312','ignore');
+    essay=essay.replace('\n','');
+    whole_list=re.split(ur"[^\u4e00-\u9fa5]",essay);
+    whole_list=[x.encode('gb2312') for x in whole_list if x!=u''];
+    # essay='\n'.join(whole_list);
+    for sent in whole_list:
+        sent_length=len(sent);
+        end=sent_length;
+        if sent_length<=max_length:
+            begin=0;
+        else:
+            begin=end-max_length;
+        temp_word_list=[];
+        while end!=0:
+            if dir_word.has_key(sent[begin:end]):
+                word_length=end-begin;
+                dir_word[sent[begin:end]].freq+=1;
+                temp_word_list.append(sent[begin:end]);
+                end=begin;
+                if end-max_length<=0:
+                    begin=0;
+                else:
+                    begin=end-max_length;
+            else:
+                if begin+2==end:
+                    end=begin;
+                    if end-max_length<=0:
+                        begin=0;
+                    else:
+                        begin=end-max_length;
+                else:
+                    begin+=2;
+        temp_sum=len(temp_word_list);
+        sum+=temp_sum;
+        if not temp_sum==1:
+            temp_word_list.reverse();
+            for x in xrange(len(temp_word_list)-1):
+                if dir_word[temp_word_list[x]].bigram.has_key(temp_word_list[x+1]):
+                    dir_word[temp_word_list[x]].bigram[temp_word_list[x+1]]+=1;
+                else:
+                    dir_word[temp_word_list[x]].bigram[temp_word_list[x+1]]=1;
+    return sum;

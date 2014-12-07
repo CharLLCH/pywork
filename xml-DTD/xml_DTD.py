@@ -44,6 +44,11 @@ def get_data(file_path):
     return student_list
 
 if __name__ == "__main__":
-    stu_list = get_data('stu_DTD.xml')
+    print "===>Node 1<==="
+    stu_list = get_data('stu_1.xml')
+    for stu in stu_list:
+        stu.print_info()
+    print "===>Node 2<==="
+    stu_list = get_data('stu_2.xml')
     for stu in stu_list:
         stu.print_info()
