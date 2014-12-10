@@ -16,12 +16,13 @@ def get_stop_list(path):
         lines = infile.readlines()
         line_num = 1
         for line in lines:
-            if line_num < 277:
+            if line_num < 278:
                 stop_list.append(line.rstrip().decode('gbk'))
                 line_num += 1
             else:
                 break
         infile.close()
+        stop_list.append(' ')
     return stop_list
 
 def get_word_pinyin_dict(path):
@@ -64,7 +65,8 @@ def get_ngram(path,word_dict,stop_list):
                     else:
                         sw_dict[seg] = 1
             for idx in xrange(len(seg_list)-1):
-                if (seg_list[idx] in stop_list) or (seg_list[idx+1] in stop_list):
+                #if (seg_list[idx] in stop_list) or (seg_list[idx+1] in stop_list):
+                if seg_list[idx] not in word_dict or seg_list[idx+1] not in word_dict:
                     continue
                 else:
                     tmp = seg_list[idx]+seg_list[idx+1]
@@ -79,10 +81,9 @@ def dict_to_file(word_dict,path):
     tmp_tuple = sorted(word_dict.iteritems(),key=lambda asd:asd[1],reverse=True)
     with open(path,'wb') as infile:
         for idx in xrange(len(word_dict)):
-            str_tmp = str(tmp_tuple[idx][0])+'\t'+str(tmp_tuple[idx][1])+'\n'
+            str_tmp = str(tmp_tuple[idx][0].encode('gbk'))+'\t'+str(tmp_tuple[idx][1])+'\n'
             infile.write(str_tmp)
         infile.close()
-
 
 if __name__ == "__main__":
     stop_list = get_stop_list(t_path['gb_path'])
