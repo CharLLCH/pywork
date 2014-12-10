@@ -5,7 +5,6 @@ def Segment(dir_word,essay,max_length):
     essay=essay.replace('\n','');
     whole_list=re.split(ur"[^\u4e00-\u9fa5]",essay);
     whole_list=[x.encode('gb2312') for x in whole_list if x!=u''];
-    # essay='\n'.join(whole_list);
     for sent in whole_list:
         sent_length=len(sent);
         end=sent_length;
