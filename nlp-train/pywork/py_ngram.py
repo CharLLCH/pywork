@@ -127,5 +127,5 @@ def dict_to_pickle(word_dict,py_dict,num_sum,path):
 if __name__ == "__main__":
     word_dict,py_dict = get_word_dict(t_path)
     num_sum = get_seg(word_dict,t_path,6)
-    dict_to_file(word_dict,t_path)
+    #dict_to_file(word_dict,t_path)
     dict_to_pickle(word_dict,py_dict,num_sum,t_path)
