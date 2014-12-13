@@ -54,6 +54,21 @@ def adjust_matrix(cost_matrix,cut_edge,is_in,n):
     else:
         cost_matrix[i,j] = INF
 
+def build_node(base_val,cost_matrix,path_line,no_edge,n):
+    tmp_path = [x for x in path_line]
+    if no_edge == 0:
+        base_val = checkout_matrix(cost_matrix,n)
+    elif no_edge < n:
+        base_val += checkout_matrix(cost_matrix,n)
+    else:
+        base_val += checkout_matrix(cost_matrix,n)
+        cut_edge = get_the_edge(cost_matrix,n)
+        tmp_path.append(cut_edge)
+        if base_val < BoundVal:
+            return tmp_path,base_val
+        else:
+            return -1
+
 if __name__ == "__main__":
     cost_matrix = initial_cost_matrix(8)
     cost_matrix,tmp_val = checkout_matrix(cost_matrix,8)
