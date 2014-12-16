@@ -1,7 +1,9 @@
 #coding=utf-8
 
+from datetime import datetime
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 
 INF = 1000
 BOUNDVAL = 1000
@@ -94,7 +96,31 @@ def update_path(tmp_path,base_val):
     global BOUNDVAL,PATHLINE
     PATHLINE = [x for x in tmp_path]
     BOUNDVAL = base_val
-    print PATHLINE,BOUNDVAL
+    tmp = [idx[1:] for idx in PATHLINE]
+    print "Now edge is : %s , The Bound is : %s"%(tmp,BOUNDVAL)
+
+def get_final_path(tmp_path,cost_matrix):
+    path_dict = {}
+    point_line = []
+    #path_val = cost_matrix[tmp_path[0][1]][tmp_path[0][2]]
+    for idx in tmp_path:
+        path_dict[idx[1]] = idx[2]
+    end_pos = tmp_path[0][1]
+    point_line.append(end_pos)
+    str_pos = path_dict[end_pos]
+    while path_dict[str_pos] in path_dict:
+        #path_val += cost_matrix[str_pos][path_dict[str_pos]]
+        point_line.append(str_pos)
+        str_pos = path_dict[str_pos]
+    point_line.append(str_pos)
+    #path_val += cost_matrix[str_pos][path_dict[str_pos]]
+    str_pos = path_dict[str_pos]
+    #str_pos = path_dict[str_pos]
+    point_line.append(str_pos)
+    point_line.append(end_pos)
+    #path_val += cost_matrix[str_pos][end_pos]
+    str_list = ' --> '.join(str(x) for x in point_line)
+    print "The Final line is : %s"%str_list
 
 def build_node(b_v,cost_matrix,path_line,n_e,n):
     global BOUNDVAL,PATHLINE
@@ -141,10 +167,22 @@ def build_node(b_v,cost_matrix,path_line,n_e,n):
             return -1
 
 if __name__ == "__main__":
-    path_line = []
-    base_val = 0
-    no_edge = 0
-    n = 8
-    cost_matrix = initial_cost_matrix(n)
-    print "====>  Initial the cost matrix  <==="
-    build_node(base_val,cost_matrix,path_line,no_edge,n)
+    time_list = []
+    for n in range(5,20):
+        path_line = []
+        base_val = 0
+        no_edge = 0
+        cost_matrix = initial_cost_matrix(n)
+        print "==> Initial the cost matrix with the N : %s <=="%n
+        start = datetime.now()
+        build_node(base_val,cost_matrix,path_line,no_edge,n)
+        get_final_path(PATHLINE,cost_matrix)
+        PATHLINE = ''
+        BOUNDVAL = ''
+        times = datetime.now()-start
+        seconds = times.microseconds + times.seconds
+        time_list.append(tuple([n,seconds]))
+    plt.figure(1)
+    for idx in time_list:
+        plt.plot(idx[0],idx[1],'ro')
+    plt.show()
