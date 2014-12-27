@@ -1,10 +1,4 @@
-"""
-From this paper: http://acl.ldc.upenn.edu/acl2004/emnlp/pdf/Mihalcea.pdf 
-
-External dependencies: nltk, numpy, networkx
-
-Based on https://gist.github.com/voidfiles/1646117
-"""
+#coding=utf-8
 
 import nltk
 import itertools
