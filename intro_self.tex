@@ -1,0 +1,128 @@
+\documentclass[10pt]{article}
+\usepackage{fontspec}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage[colorlinks,urlcolor=black]{hyperref}
+
+\pagestyle{empty}
+\raggedright
+%\setmainfont[BoldFont=Microsoft YaHei]{SimSun}
+%\setmainfont[BoldFont=Microsoft YaHei]{NSimSun}
+%\setmainfont[BoldFont=Microsoft YaHei]{KaiTi}
+%\setmainfont[BoldFont=Microsoft YaHei]{FangSong}
+%\setmainfont[BoldFont=Microsoft YaHei]{Microsoft YaHei Light}
+\setmainfont[BoldFont=Microsoft YaHei Bold]{Microsoft YaHei}
+
+\setlength{\textheight}{25.5cm}
+
+%  \renewcommand{\encodingdefault}{cg}
+  %\renewcommand{\rmdefault}{lgrcmr}
+
+\def\bull{\vrule height 0.8ex width .7ex depth -.1ex }
+% DEFINITIONS FOR RESUME
+\newcommand{\area}[2]{\vspace*{-9pt} \begin{verse}\textbf{#1}   #2 \end{verse}  }
+\newcommand{\lineunder}{\vspace*{-8pt} \\ \hspace*{-18pt} \hrulefill \\}
+\newcommand{\header}[1]{{\hspace*{-15pt}\vspace*{6pt} \textsc{#1}} \vspace*{-6pt} \lineunder}
+\newcommand{\employer}[3]{{ \textbf{#1} (#2)\\ \underline{\textbf{\emph{#3}}}\\  }}
+\newcommand{\contact}[3]{
+\vspace*{-8pt}
+\begin{center}
+{\LARGE \scshape {#1}}\\
+#2 \lineunder
+#3
+\end{center}
+\vspace*{-8pt}
+}
+
+
+\begin{document}
+
+\newenvironment{achievements}{\begin{list}{$\bullet$}{\topsep 0pt \itemsep -2pt}}{\vspace*{4pt}\end{list}}
+\newcommand{\schoolwithcourses}[4]{
+ \textbf{#1} #2 $\bullet$ #3\\
+\vspace*{5pt}
+}
+\newcommand{\school}[4]{
+ \textbf{#1} #2 $\bullet$ #3\\
+#4 \\
+}
+% END RESUME DEFINITIONS
+
+\small
+\smallskip
+\vspace*{-44pt}
+
+\contact{\huge 成 昊}
+{应聘岗位：算法工程师（实习生）  地点：杭州}
+{电话： \textbf{+(86) 185-1132-0587}\\ E-mail: \href{mailto:charlley88@163.com}{charlley88@163.com}\\GitHub: \urlstyle{same}\url{https://github.com/CharLLCH} \\ SAEblog: \urlstyle{same}\url{http://codeseeking.sinaapp.com} \\黑龙江省哈尔滨市南岗区西大直街92号哈尔滨工业大学新技术楼603}
+
+\header{科研、竞赛与项目经历}
+\employer{Kaggle Competitions}{2014.11.18-2015.02.09}{Click-Through Rate Prediction}
+\begin{achievements}
+\item GitHub地址：\urlstyle{same}\url{https://github.com/CharLLCH/avazu-CTR}
+	\item 比赛内容：根据Avazu给定的11天用户广告点击数据，预测新的手机广告是否会被点击
+	\item 评价标准：LogLoss
+	\item 数据预处理：训练集统计、低频值处理、Hash Trick等
+	\item 特征选择与特征组合：基于特征值统计的特征筛选、类别特征组合、GBDT构建新特征
+	\item 模型选择：VW在线学习模型、前向NN模型、GOOGLE FTRL在线学习模型、FM模型
+	\item 交叉验证、预测概率后处理、模型融合
+	\item 比赛结果：66/1604
+\end{achievements}
+
+\employer{ITNLP Project}{2014.11.01-至今}{基于知识图谱的答案摘要方法研究}
+\begin{achievements}
+\item github地址：\urlstyle{same}\url{https://github.com/lavizhao/insummer}
+	\item 项目内容：基于知识图谱的答案摘要方法研究
+	\item 语料爬取和预处理
+	\item 基于知识图谱的实体链接
+	\item 基于TextRank、LexRank算法实现的答案摘要算法
+	\item 摘要评价工具ROUGE使用及结果分析
+\end{achievements}
+
+\employer{ITNLP Project}{2014.11.01-2014.12.01}{文本分类算法实现}
+\begin{achievements}
+\item github地址：\urlstyle{same}\url{https://github.com/CharLLCH/Rotus-TC}
+	\item 项目内容：基于Logistic Regression等方法实现路透社语料的文本分类
+	\item 评价标准：F1、准确率、召回率
+	\item 数据预处理：Tokenize、Stem、StopWords
+	\item 特征选择：TF、IDF、TFIDF、信息增益、Bigram
+	\item 分类器选择：实现LR分类器，并与sklearn的SVM，NB等分类器进行比较
+	\item 结果后处理：模型加权，模型融合
+\end{achievements}
+
+\header{专业技能}
+\begin{achievements}
+	\item 熟悉基本算法与数据结构
+	\item 熟悉C/C++，Python等常用语言，日常使用Linux系统
+	\item 了解基本监督学习、无监督机器学习方法，实现过LR，KNN模型
+	\item 了解基本自然语言处理方法，实现过HMM词性标注，文本分类，答案摘要等算法
+\end{achievements}
+
+
+\header{教育背景}
+
+$\bullet$ 哈尔滨工业大学 计算机科学与技术 硕士~~~~2014.09-至今
+\begin{itemize}
+	\item 实验室：智能技术与自然语言处理实验室（ITNLP） 
+	\item 毕业时间：2016.07
+\end{itemize}
+
+$\bullet$ 哈尔滨工业大学(威海）信息安全 本科~~~~2009.09-2013.07
+\begin{itemize}
+	\item CET4:551~~~~CET6:491
+\end{itemize}
+
+\header{社会实践及获奖情况}
+\begin{achievements}
+	\item 曾获哈尔滨工业大学二等人民奖学金2次，三等人民奖学金2次
+	\item 曾获哈尔滨工业大学三好学生、优秀学生干部、优秀团员称号
+	\item 曾获2012年山东省省级暑期社会实践优秀个人称号
+	\item 曾获2012年全美数学建模国际二等奖
+	\item 曾获2013级哈尔滨工业大学本科优秀毕业生称号
+	\item 曾任哈尔滨工业大学（威海）计算机科学与技术学院暑期赴大连社会实践团学生负责人
+	\item 曾任哈尔滨工业大学（威海）计算机科学与技术学院暨软件学院第一届第一任团委副书记
+\end{achievements}
+
+\end{document}
